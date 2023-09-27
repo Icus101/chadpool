@@ -3,7 +3,7 @@
 import { BaseError } from 'viem'
 import { useAccount, useConnect, useDisconnect,Connector } from 'wagmi'
 
-const shortText = (text:string, n:number) => {
+export const shortText = (text:string, n:number) => {
     if (text.length > n) {
         const shortenedText = text.substring(0, n).concat('...')
         return shortenedText

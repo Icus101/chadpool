@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import {
-    useAccount, useContractRead, useContractWrite,
+    useAccount, useBalance, useContractRead, useContractWrite,
     usePrepareContractWrite,
     useWaitForTransaction,
 } from 'wagmi'
@@ -9,16 +9,11 @@ import { abi } from './contract'
 import { BaseError } from 'viem'
 import Countdown from './Countdown'
 import { IoIosRefresh } from "react-icons/io";
+import Image from 'next/image'
+import FetchBal from './FetchBal'
 
-// const stringify: typeof JSON.stringify = (value, replacer, space) =>
-//     JSON.stringify(
-//         value,
-//         (key, value_) => {
-//             const value = typeof value_ === 'bigint' ? value_.toString() : value_
-//             return typeof replacer === 'function' ? replacer(key, value) : value
-//         },
-//         space,
-//     )
+
+
 
 const shortText = (text: string, n: number) => {
     if (text.length > n) {
@@ -66,7 +61,7 @@ const Claim = () => {
         } = useWaitForTransaction({ hash: data?.hash })
 
         return (
-            <div>
+            <div className='my-[15px]'>
                 <div>
                     <form onSubmit={(e) => {
                         e.preventDefault()
@@ -74,7 +69,7 @@ const Claim = () => {
                         console.log(data);
 
                     }}>
-                        <button type='submit' disabled={isLoading || Number(data!) == 0} className='nes-btn sm:text-[24px] text-[16px] font-[700] text-[#212529] leading-[36px] '>
+                        <button type='submit' disabled={isLoading || Number(data!) == 0} className='nes-btn sm:text-[24px]  text-[16px] font-[700] text-[#212529] leading-[36px] '>
                             CLAIM
 
                         </button>
@@ -113,11 +108,15 @@ const Claim = () => {
             watch: true,
         })
 
+
+
+
+
         return (
-            <div className='nes-text'>
+            <div className='nes-text mt-[20px]'>
 
                 <div className='flex justify-center items-center'>
-                    {data ? <div>Latest Buyer: {shortText(data.toString(), 10)}</div> : <> Loading...</>}
+                    {data ? <div className='sm:text-[20px] text-[12px]'>Latest Buyer: {shortText(data.toString(), 10)}</div> : <> Loading...</>}
                     <button
                         className='nes-btn'
                         disabled={isRefetching}
@@ -126,6 +125,10 @@ const Claim = () => {
                     >
                         {isRefetching ? 'loading...' : <IoIosRefresh size={20} />}
                     </button>
+                    {/* <div>
+                        {balances}
+                    </div> */}
+
 
                 </div>
 
@@ -146,7 +149,7 @@ const Claim = () => {
         })
 
         return (
-            <div className=''>
+            <div className='sm:text-[20px] text-[12px]'>
 
                 Latest Buy Block Time: {convertTimestampToDateTime(Number(data))}
                 <button
@@ -167,7 +170,7 @@ const Claim = () => {
             address: '0xbfa7c25De49276C7B695C5253D074222DF634CbD',
             abi,
             functionName: 'getTimeDiff',
-            enabled: true,
+            enabled: false,
             // cacheOnBlock: true,
             watch: true,
         })
@@ -204,7 +207,7 @@ const Claim = () => {
                     <div className="bg-blue-500 text-white p-4 rounded-lg shadow-lg text-center">
                         <h1 className="sm:text-2xl text-[20px] font-semibold mb-2">Countdown Timer</h1>
                         <p className="text-xl">Time Remaining:</p>
-                        <div className="sm:text-4xl text-2xl font-bold mb-2">{formatTime(seconds)}</div>
+                        <div className="sm:text-4xl text-md font-bold mb-2">{formatTime(seconds)}</div>
                         <button
                             className='nes-btn  '
                             disabled={isRefetching}
@@ -232,20 +235,38 @@ const Claim = () => {
             {!isConnected && <h2>Please connect your Wallet</h2>}
             {isConnected &&
                 <div>
-                    <h4>{address}</h4>
+                    <h4>{shortText(address!, 8)}</h4>
                     {/* <h4>Your account balance is {data?.formatted} ETH</h4> */}
                 </div>
             }
 
 
-            <div className='text-center nes-text sm:text-[32px] text-[20px] font-[700] leading-[48px] box-border'>
-                CHAD OF POOL
+            <div className=' flex justify-center mb-[20px]'>
+                <Image src='/COTP.png' alt='COTP' height={500} width={500} />
             </div>
             <TimeLeftToClaim />
+            <FetchBal />
             <div>
                 <ClaimToken />
             </div>
+            
+            <div className='sm:flex block  justify-center gap-3'>
+            <a href="https://app.uniswap.org/swap">
+                    <button className='nes-btn'>
+
+                        BUY COTP ON UNISWAP
+
+                    </button>
+                </a>
+                <a href="https://www.dextools.io/app/en/ether/pair-explorer/0xd3b4f5b4cf06498e4fbdd71c9da4f5befe01a0ed">
+                    <button className='nes-btn'>
+                        CHART
+                    </button>
+                </a>
+            </div>
+
             <div className=''>
+               
                 <LatestBuyer />
                 <LatestBuyTime />
             </div>

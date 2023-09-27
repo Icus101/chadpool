@@ -3,25 +3,29 @@ import { useConnect, useDisconnect, useAccount, useBalance, Connector } from 'wa
 import Link from '../../../node_modules/next/link'
 import { Connect } from './Connect'
 import { SocialIcon } from 'react-social-icons'
+import Image from 'next/image'
 
 
 
 const Header = () => {
     return (
         <div className='container mx-auto nes-text mb-[50px]'>
-            <div className='flex  justify-between items-center sm:text-[20px] text-[15px] py-[20px] '>
-                <div className='nes-text   '>
-                    CHADOFPOOL
+            <div className='sm:flex block text-center  justify-between items-center sm:text-[20px] text-[15px] py-[20px] '>
+                <div className=' flex justify-center'>
+                    <Image src='/COTP.png' alt='COTP' height={300} width={300}/>
                 </div>
-                <div className='sm:flex hidden  gap-2'>
+                <div className='flex items-center justify-center sm:mt-0 mt-[20px]   gap-2'>
                     <div>
-                        <SocialIcon url="https://twitter.com" />
+                        <SocialIcon url=" https://twitter.com/chadofthepool"/>
                     </div>
                     <div>
-                        <SocialIcon url="https://telegram.com" />
+                        <SocialIcon url="https://t.me/chadofthepoolportal"/>
                     </div>
                 </div>
-                <Connect />
+                <div className='sm:mt-0 mt-[20px]'>
+                    <Connect />
+                </div>
+
             </div>
         </div>
     )
