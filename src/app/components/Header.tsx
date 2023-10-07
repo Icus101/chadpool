@@ -3,6 +3,7 @@ import { useConnect, useDisconnect, useAccount, useBalance, Connector } from 'wa
 import Link from '../../../node_modules/next/link'
 import { Connect } from './Connect'
 import { SocialIcon } from 'react-social-icons'
+import 'react-social-icons/telegram'
 import Image from 'next/image'
 
 
@@ -19,7 +20,7 @@ const Header = () => {
                         <SocialIcon url=" https://twitter.com/chadofthepool"/>
                     </div>
                     <div>
-                        <SocialIcon url="https://t.me/chadofthepoolportal"/>
+                        <SocialIcon url="https://telegram.me/chadofthepoolportal"/>
                     </div>
                 </div>
                 <div className='sm:mt-0 mt-[20px]'>
